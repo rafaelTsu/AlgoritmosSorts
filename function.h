@@ -13,5 +13,4 @@ void selection(int *v, int n);
 
 double calculaMedia(double *v, int n);
 
-
 #endif
