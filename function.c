@@ -11,17 +11,17 @@ void merge(int *v, int ini, int meio, int fim){
 	int v_dir[n2+1];
 
 	for(int i = 0; i<n1; i++){
-		v_esq[i] = v[ini+i-1];
+		v_esq[i] = v[ini+i];
 	}
 
-	for(int j = 1; j<n2; j++){
-		v_dir[j] = v[meio+j];
+	for(int j = 0; j<n2; j++){
+		v_dir[j] = v[meio+j+1];
 	}
 
 	v_esq[n1+1] = 10000;
 	v_dir[n2+1] = 10000;
 
-	int i = 1, j = 1;
+	int i = 0, j = 0;
 
 	for(int k = ini; k<fim; k++){
 		if (v_esq[i] <= v_dir[j]){
