@@ -43,9 +43,9 @@ int main(){
 
 		while(cont < rpt){
 			for(int i = 0; i<random; i++){
-				v_selection[i] = rand() % 7000;
+				v_selection[i] = rand();
 				v_insertion[i] = v_selection[i];
-				v_merge[i] = v_selection;
+				v_merge[i] = v_selection[i];
 			}
 
 			begin = clock();
@@ -61,22 +61,23 @@ int main(){
 			media_insertion[cont] = (double)(end - begin)/CLOCKS_PER_SEC;
 
 			begin = clock();
-			mergesort(v_merge, 0, inc);
+			mergesort(v_merge, random);
 			end = clock();
 
-			media_merge[cont] = (double)(end - begin)/CLOCKS_PER_SEC;
+			media_merge[cont] = ((double)(end - begin))/CLOCKS_PER_SEC;
 
 			cont++;
 		}
 
 		printf("	%f	", calculaMedia(media_selection, rpt));
-		printf("%f\n", calculaMedia(media_insertion, rpt));
+		printf("%f", calculaMedia(media_insertion, rpt));
 		printf("	%f\n", calculaMedia(media_merge, rpt));
 
-
 		random = random + stp;
+
 		free(v_selection);
 		free(v_insertion);
+		free(v_merge);
 	}
 
 	printf("\n[[REVERSE]]\n");

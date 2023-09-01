@@ -5,44 +5,49 @@
 
 /*Merge Sort - arrumar*/
 void merge(int *v, int ini, int meio, int fim){
-	int n1 = meio - ini + 1;
-	int n2 = fim - meio;
-	int v_esq[n1+1];
-	int v_dir[n2+1];
+	int left = meio - ini + 1;
+	int right = fim - meio;
 
-	for(int i = 0; i<n1; i++){
-		v_esq[i] = v[ini+i];
+	int temp_left[left];
+	int temp_right[right];
+
+	int i, j, k;
+
+	for(int i = 0; i < left; i++){
+		temp_left[i] = v[ini + i];
 	}
 
-	for(int j = 0; j<n2; j++){
-		v_dir[j] = v[meio+j+1];
+	for(int j = 0; j < right; j++){
+		temp_right[j] = v[meio + j + 1];
 	}
 
-	v_esq[n1+1] = 10000;
-	v_dir[n2+1] = 10000;
-
-	int i = 0, j = 0;
-
-	for(int k = ini; k<fim; k++){
-		if (v_esq[i] <= v_dir[j]){
-			v[k] = v_esq[i];
+	for(i = 0, j = 0, k = ini; k<=fim; k++){
+		if((i<left) && (j>=right || temp_left[i]<=temp_right[j])){
+			v[k] = temp_left[i];
 			i++;
 		}
 		else{
-			v[k] = v_dir[j];
+			v[k] = temp_right[j];
 			j++;
 		}
 	}
 }
 
-void mergesort(int *v, int ini, int fim){
+void mergesort_recursao(int *v, int ini, int fim){
 	if(ini < fim){
-		int meio = (ini+fim)/2;
-		mergesort(v, ini, meio);
-		mergesort(v, meio + 1, fim);
+		int meio = ini + (fim-ini)/2;
+
+		mergesort_recursao(v, ini, meio);
+		mergesort_recursao(v, meio + 1, fim);
+		
 		merge(v, ini, meio, fim);
 	}
 }
+
+void mergesort(int *v, int n){
+	mergesort_recursao(v, 0, n-1);
+}
+
 
 /*Insertion Sort*/
 void insertion(int *v, int n){
@@ -114,7 +119,7 @@ void max_heapify(int *v, int pai, int n){
 
 /*Retorna média*/
 double calculaMedia(double *v, int n){
-	double media = 0;
+	double media = 0.0;
 	for(int i = 0; i<n; i++){
 		media = media + v[i];
 	}
