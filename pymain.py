@@ -56,29 +56,65 @@ def selection(lista):
             lista[min_index] = aux
 
 #Heap Sort
+def heap_pai(filho):
+    return filho//2
 
+def heap_left(pai):
+    return 2*pai
 
+def heap_right(pai):
+    return 2*pai+1
+
+def max_heapify(lista, pai, pos):
+    l = heap_left(pai)
+    r = heap_right(pai)
+    if(l <= pos and lista[l] > lista[pai]):
+        largest = l
+    else:
+        largest = pai
+    if(r <= pos and lista[r] > lista[pai]):
+        largest = r
+    if(largest != pai):
+        aux = lista[pai]
+        lista[pai] = lista[largest]
+        lista[largest] = aux
+        max_heapify(lista, largest, pos)
+
+def build_max_heap(lista):
+    pos = len(lista)
+    for i in range(len(lista)//2, 1, -1):
+        max_heapify(lista, i, pos)
+
+def heap(lista):
+    build_max_heap(lista)
+    pos = len(lista)
+    for i in range(len(lista), 2, -1):
+        aux = lista[1]
+        lista[1] = lista[i]
+        lista[i] = aux
+        pos -= 1
+        max_heapify(lista, 1, pos)
 
 #Quick Sort
 def partition(lista, ini, fim):
-    pivot = lista[fim]
     i = ini
-    for j in range(ini, fim):
-        if (lista[j] <= pivot):
-            aux = lista[j]
-            lista[j] = lista[i]
-            lista[i] = aux
-            i += 1
-    aux = lista[i]
-    lista[i] = lista[fim]
-    lista[fim] = aux
+    j = fim - 1
+    pivot = lista[fim]
+
+    while(i<j):
+        while(i < fim and lista[i] < pivot):
+            i+=1
+        while(j > ini and lista[j] >= pivot):
+            j-=1
+        if(i < j):
+            lista[i], lista[j] = lista[j], lista[i]
+    
+    if(lista[i] > pivot):
+        lista[i], lista[fim] = lista[fim], lista[i]
     return i
 
-def quick(lista, ini=0, fim=None):
-    if fim is None:
-        fim = len(lista)-1
-
-    if(ini<fim):
+def quick(lista, ini, fim):
+    if(ini < fim):
         p = partition(lista, ini, fim)
         quick(lista, ini, p-1)
         quick(lista, p+1, fim)
@@ -90,6 +126,7 @@ def calcula_media(lista, ini):
     for i in range(ini, n):
         media += lista[i]
     return media/(n-ini)
+
 
 media_selection = []
 media_insertion = []
@@ -110,8 +147,9 @@ stp = int(input())
 print("Digite quantas vezes o vetor deve ser repetido: ")
 rpt = int(input())
 
+'''
 print("[[RANDOM]]")
-print("   n    Selection       Insertion       Merge       Quick       Heap       Counting")
+print("   n    Selection       Insertion       Merge           Quick           Heap       Counting")
 print("-----------------------------------------------------------------------------------")
 aleatorio = inc
 
@@ -160,11 +198,68 @@ while(aleatorio <= fim):
 
     aux += cont
     aleatorio += stp
+'''
+
+print("[[REVERSE]]")
+print("   n    Selection       Insertion       Merge           Quick           Heap       Counting")
+print("-----------------------------------------------------------------------------------")
+reverse = inc
+
+aux = 0
+while(reverse <= fim):
+    print("%d" %reverse, end="    ")
+    cont = 0
+    while(cont < rpt):
+        any_numbers = random.sample(range(0,30000), reverse)
+        mergesort(any_numbers)
+
+        lista_selection = any_numbers[::-1]
+        lista_insertion = any_numbers[::-1]
+        lista_merge = any_numbers[::-1]
+        lista_quick = any_numbers[::-1]
+
+        start_time = time.time()
+        selection(lista_selection)
+        end_time = time.time()
+
+        media_selection.append(end_time - start_time)
+
+        start_time = time.time()
+        insertion(lista_insertion)
+        end_time = time.time()
+
+        media_insertion.append(end_time - start_time)
+
+        start_time = time.time()
+        mergesort(lista_merge)
+        end_time = time.time()
+
+        media_merge.append(end_time - start_time)
+
+        start_time = time.time()
+        quick(lista_quick, 0, len(lista_quick) - 1)
+        end_time = time.time()
+
+        media_quick.append(end_time - start_time)
+
+        cont += 1
+
+    print("%.6f" %calcula_media(media_selection, aux), end="        ")
+    print("%.6f" %calcula_media(media_insertion, aux), end="        ")
+    print("%.6f" %calcula_media(media_merge, aux), end="        ")
+    print("%.6f" %calcula_media(media_quick, aux))
+
+
+    aux += cont
+    reverse += stp
+
 
 
 '''
-any_numbers = random.sample(range(1,1000), 20)
-lista = any_numbers
-quick(lista)
-print(lista)
+for i in range(5):
+    any_numbers = random.sample(range(1,1000), 10)
+    mergesort(any_numbers)
+    print(any_numbers)
+    lista = any_numbers[::-1]
+    print(lista)
 '''
