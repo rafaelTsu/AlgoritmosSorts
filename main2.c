@@ -10,8 +10,11 @@ int main(){
 	int random, nearly_sorted, sorted, reverse;
 	clock_t begin, end;
 	int inc, fim, stp, rpt, cont;
+	FILE *output;
 
 	srand(time(NULL));
+
+	output = fopen("output.txt", "w");
 
 	printf("Digite o inicio do vetor: ");
 	scanf("%d", &inc);
@@ -32,12 +35,16 @@ int main(){
 	media_heap	= calloc(rpt, sizeof(double));
 
 	printf("\n[[RANDOM]]\n");
-	printf("   n    Selection       Insertion       Merge           Quick           Heap      Counting\n");
-	printf("------------------------------------------------------------------------------------------\n");
+	printf("   n    Selection       Insertion       Merge           Quick           Heap             Counting\n");
+	printf("-------------------------------------------------------------------------------------------------\n");
+	fprintf(output, "\n[[RANDOM]]\n");
+	fprintf(output, "   n    Selection       Insertion       Merge           Quick           Heap             Counting\n");
+	fprintf(output, "-------------------------------------------------------------------------------------------------\n");
 	random = inc;
 
 	while(random <= fim){
 		printf("%d", random);
+		fprintf(output, "%d", random);
 		cont = 0;
 		v_selection = calloc(random, sizeof(int));	
 		v_insertion = calloc(random, sizeof(int));
@@ -92,6 +99,11 @@ int main(){
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
 		printf("	%f\n", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
+		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
+		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
+		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
+		fprintf(output, "	%f\n", calculaMedia(media_heap, rpt));
 
 		random = random + stp;
 
@@ -103,12 +115,16 @@ int main(){
 	}
 
 	printf("\n[[REVERSE]]\n");
-	printf("   n    Selection       Insertion       Merge           Quick           Heap      Counting\n");
-	printf("------------------------------------------------------------------------------------------\n");
+	printf("   n    Selection       Insertion       Merge           Quick           Heap             Counting\n");
+	printf("-------------------------------------------------------------------------------------------------\n");
+	fprintf(output, "\n[[REVERSE]]\n");
+	fprintf(output, "   n    Selection       Insertion       Merge           Quick           Heap             Counting\n");
+	fprintf(output, "-------------------------------------------------------------------------------------------------\n");
 	reverse = inc;
 
 	while(reverse <= fim){
 		printf("%d", reverse);
+		fprintf(output, "%d", reverse);
 		cont = 0;
 		v_selection = calloc(reverse, sizeof(int));	
 		v_insertion = calloc(reverse, sizeof(int));
@@ -168,6 +184,11 @@ int main(){
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
 		printf("	%f\n", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
+		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
+		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
+		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
+		fprintf(output, "	%f\n", calculaMedia(media_heap, rpt));
 
 		reverse = reverse + stp;
 
@@ -179,12 +200,16 @@ int main(){
 	}
 
 	printf("\n[[SORTED]]\n");
-	printf("   n    Selection       Insertion       Merge           Quick           Heap      Counting\n");
-	printf("------------------------------------------------------------------------------------------\n");
+	printf("   n    Selection       Insertion       Merge           Quick           Heap             Counting\n");
+	printf("-------------------------------------------------------------------------------------------------\n");
+	fprintf(output, "\n[[SORTED]]\n");
+	fprintf(output, "   n    Selection       Insertion       Merge           Quick           Heap             Counting\n");
+	fprintf(output, "-------------------------------------------------------------------------------------------------\n");
 	sorted = inc;
 
 	while(sorted <= fim){
 		printf("%d", sorted);
+		fprintf(output, "%d", sorted);
 		cont = 0;
 		v_selection = calloc(sorted, sizeof(int));	
 		v_insertion = calloc(sorted, sizeof(int));
@@ -243,6 +268,11 @@ int main(){
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
 		printf("	%f\n", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
+		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
+		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
+		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
+		fprintf(output, "	%f\n", calculaMedia(media_heap, rpt));
 
 		sorted = sorted + stp;
 
@@ -254,12 +284,16 @@ int main(){
 	}
 
 	printf("\n[[NEARLY SORTED]]\n");
-	printf("   n    Selection       Insertion       Merge           Quick           Heap      Counting\n");
-	printf("------------------------------------------------------------------------------------------\n");
+	printf("   n    Selection       Insertion       Merge           Quick           Heap             Counting\n");
+	printf("-------------------------------------------------------------------------------------------------\n");
+	fprintf(output, "\n[[NEARLY SORTED]]\n");
+	fprintf(output, "   n    Selection       Insertion       Merge           Quick           Heap             Counting\n");
+	fprintf(output, "-------------------------------------------------------------------------------------------------\n");
 	nearly_sorted = inc;
 
 	while(nearly_sorted <= fim){
 		printf("%d", nearly_sorted);
+		fprintf(output, "%d", nearly_sorted);
 		cont = 0;
 		v_selection = calloc(nearly_sorted, sizeof(int));	
 		v_insertion = calloc(nearly_sorted, sizeof(int));
@@ -319,6 +353,11 @@ int main(){
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
 		printf("	%f\n", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
+		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
+		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
+		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
+		fprintf(output, "	%f\n", calculaMedia(media_heap, rpt));
 
 		nearly_sorted = nearly_sorted + stp;
 
@@ -328,6 +367,7 @@ int main(){
 		free(v_quick);
 		free(v_heap);
 	}
+	fclose(output);
 
 	return 0;
 }
