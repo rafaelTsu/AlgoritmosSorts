@@ -133,7 +133,7 @@ void heapsort(int *v, int n){
 /*Quick Sort*/
 int partition(int *v, int ini, int fim) {
 	int meio = (ini+fim)/2;
-    int pivot = v[meio]; // Escolha o pivô como o elemento do meio
+    int pivot = v[meio];
     int i = ini - 1;
     int j = fim + 1;
 
@@ -155,9 +155,9 @@ int partition(int *v, int ini, int fim) {
 
 void quick(int *v, int ini, int fim) {
     if (ini < fim) {
-        int pivotIndex = partition(v, ini, fim);
-        quick(v, ini, pivotIndex);
-        quick(v, pivotIndex + 1, fim);
+        int p = partition(v, ini, fim);
+        quick(v, ini, p);
+        quick(v, p + 1, fim);
     }
 }
 
