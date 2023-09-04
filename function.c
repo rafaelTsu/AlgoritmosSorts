@@ -3,13 +3,14 @@
 #include <time.h>
 #include "function.h"
 
-/*Merge Sort - arrumar*/
+/*Merge Sort*/
 void merge(int *v, int ini, int meio, int fim){
+	int *temp_left, *temp_right;
 	int left = meio - ini + 1;
 	int right = fim - meio;
 
-	int temp_left[left];
-	int temp_right[right];
+	temp_left = calloc(left, sizeof(int));
+	temp_right = calloc(right, sizeof(int));
 
 	int i, j, k;
 
@@ -86,28 +87,84 @@ void selection(int *v, int n){
 }
 
 /*Heap Sort*/
-int filho_esq(int pai){
-	return pai*2 + 1;
+int heap_left(int pai){
+	return 2*pai + 1;
 }
 
-int filho_dir(int pai){
-	return pai*2 + 2;
+int heap_right(int pai){
+	return 2*pai + 2;
 }
 
-int heap_pai(int filho){
-	return(filho-0.5)/2;
+void max_heapify(int *v, int n, int i){
+	int maior = i;
+	int left = heap_left(i);
+	int right = heap_right(i);
+
+	if(left < n && v[left] > v[maior]){
+		maior = left;
+	}
+	if(right < n && v[right] > v[maior]){
+		maior = right;
+	}
+	if(maior!=i){
+		troca(&v[i],&v[maior]);
+		max_heapify(v, n, maior);
+	}
 }
 
-void max_heapify(int *v, int pai, int n){
-	
+void build_max_heap(int *v, int n){
+	for(int i = n/2; i>=0; i--){
+		max_heapify(v, n, i);
+	}
+}
+
+void heapsort(int *v, int n){
+	build_max_heap(v, n);
+
+	for(int i = n-1; i>0; i--){
+		troca(&v[0], &v[i]);
+		max_heapify(v, i, 0);
+	}
 }
 
 
 
 
 /*Quick Sort*/
+int partition(int *v, int ini, int fim) {
+	int meio = (ini+fim)/2;
+    int pivot = v[meio]; // Escolha o pivô como o elemento do meio
+    int i = ini - 1;
+    int j = fim + 1;
+
+    while (1) {
+        do{
+            i++;
+        }while (v[i] < pivot);
+
+        do{
+            j--;
+        }while (v[j] > pivot);
+
+        if (i >= j)
+            return j;
+
+        troca(&v[i], &v[j]);
+    }
+}
+
+void quick(int *v, int ini, int fim) {
+    if (ini < fim) {
+        int pivotIndex = partition(v, ini, fim);
+        quick(v, ini, pivotIndex);
+        quick(v, pivotIndex + 1, fim);
+    }
+}
 
 
+void quicksort(int *v, int n){
+	quick(v, 0, n-1);
+}
 
 
 
@@ -124,4 +181,34 @@ double calculaMedia(double *v, int n){
 		media = media + v[i];
 	}
 	return media/n;
+}
+
+/*Inverte vetor*/
+void inverter_lista(int *v, int n){
+	if(n>0){
+		int *aux = calloc(n, sizeof(int));
+		int cont = 0;
+
+		for(int i = 0; i<n; i++){
+			aux[i] = v[i];
+		}
+
+		for(int j = n-1; j >= 0; j--){
+			v[cont++] = aux[j];
+		}
+	}
+}
+
+/*Embaralha vetor*/
+void embaralhar(int *v, int n){
+	int aux, index1, index2;
+	int qtde = n/10;
+	for(int i = 0; i<qtde; i++){
+		srand(time(NULL));
+		index1 = rand() % (n-1);
+		index2 = rand() % (n-1);
+		aux = v[index1];
+		v[index1] = v[index2];
+		v[index2] = aux;
+	}
 }
