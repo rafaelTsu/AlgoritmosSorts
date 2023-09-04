@@ -127,9 +127,6 @@ void heapsort(int *v, int n){
 	}
 }
 
-
-
-
 /*Quick Sort*/
 int partition(int *v, int ini, int fim) {
 	int meio = (ini+fim)/2;
@@ -161,12 +158,9 @@ void quick(int *v, int ini, int fim) {
     }
 }
 
-
 void quicksort(int *v, int n){
 	quick(v, 0, n-1);
 }
-
-
 
 /*Counting Sort*/
 
@@ -201,14 +195,12 @@ void inverter_lista(int *v, int n){
 
 /*Embaralha vetor*/
 void embaralhar(int *v, int n){
-	int aux, index1, index2;
-	int qtde = n/10;
+	srand(time(NULL));
+	int index1, index2;
+	int qtde = n * 0.1;
 	for(int i = 0; i<qtde; i++){
-		srand(time(NULL));
-		index1 = rand() % (n-1);
-		index2 = rand() % (n-1);
-		aux = v[index1];
-		v[index1] = v[index2];
-		v[index2] = aux;
+		index1 = rand() % n;
+		index2 = rand() % n;
+		troca(&v[index1], &v[index2]);
 	}
 }
