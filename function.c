@@ -3,6 +3,8 @@
 #include <time.h>
 #include "function.h"
 
+#define MAX 500001
+
 /*Merge Sort*/
 void merge(int *v, int ini, int meio, int fim){
 	int *temp_left, *temp_right;
@@ -163,10 +165,24 @@ void quicksort(int *v, int n){
 }
 
 /*Counting Sort*/
+void counting(int *v, int n){
+	int *count, index = 0;
+	count = malloc(MAX * sizeof(int));
+	for(int i = 0; i<MAX; i++){
+		count[i] = 0;
+	}
 
+	for(int i = 0; i<n; i++){
+		count[v[i]]++;
+	}
 
-
-
+	for(int i = 0; i < MAX; i++){
+		while(count[i] > 0){
+			v[index++] = i;
+			count[i]--;
+		}
+	}
+}
 
 /*Retorna média*/
 double calculaMedia(double *v, int n){

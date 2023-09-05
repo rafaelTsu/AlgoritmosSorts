@@ -34,6 +34,9 @@ void quick(int *v, int ini, int fim);
 
 int partition(int *v, int ini, int fim);
 
+//Counting Sort
+void counting(int *v, int n);
+
 //Retorna média do tempo
 double calculaMedia(double *v, int n);
 

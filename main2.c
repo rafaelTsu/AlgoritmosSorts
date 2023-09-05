@@ -4,9 +4,11 @@
 #include <time.h>
 #include "function.h"
 
+#define TAM 500000
+
 int main(){
-	int *v_selection = NULL, *v_insertion = NULL ,*v_merge = NULL, *v_quick = NULL, *v_heap = NULL; //, *v_counting = NULL;
-	double *media_selection = NULL, *media_insertion = NULL, *media_merge = NULL, *media_quick = NULL, *media_heap = NULL; //, *media_counting = NULL;
+	int *v_selection = NULL, *v_insertion = NULL ,*v_merge = NULL, *v_quick = NULL, *v_heap = NULL, *v_counting = NULL;
+	double *media_selection = NULL, *media_insertion = NULL, *media_merge = NULL, *media_quick = NULL, *media_heap = NULL, *media_counting = NULL;
 	int random, nearly_sorted, sorted, reverse;
 	clock_t begin, end;
 	int inc, fim, stp, rpt, cont;
@@ -33,6 +35,7 @@ int main(){
 	media_merge = calloc(rpt, sizeof(double));
 	media_quick = calloc(rpt, sizeof(double));
 	media_heap	= calloc(rpt, sizeof(double));
+	media_counting = calloc(rpt, sizeof(double));
 
 	printf("\n[[RANDOM]]\n");
 	printf("   n    Selection       Insertion       Merge           Quick           Heap             Counting\n");
@@ -46,19 +49,21 @@ int main(){
 		printf("%d", random);
 		fprintf(output, "%d", random);
 		cont = 0;
-		v_selection = calloc(random, sizeof(int));	
-		v_insertion = calloc(random, sizeof(int));
+		v_selection = malloc(random * sizeof(int));	
+		v_insertion = malloc(random * sizeof(int));
 		v_merge = malloc(random * sizeof(int));
 		v_quick = malloc(random * sizeof(int));
 		v_heap = malloc(random * sizeof(int));
+		v_counting = malloc(random * sizeof(int));
 
 		while(cont < rpt){
 			for(int i = 0; i<random; i++){
-				v_selection[i] = rand();
+				v_selection[i] = rand() % TAM;
 				v_insertion[i] = v_selection[i];
 				v_merge[i] = v_selection[i];
 				v_quick[i] = v_selection[i];
 				v_heap[i] = v_selection[i];
+				v_counting[i] = v_selection[i];
 			}
 
 			begin = clock();
@@ -91,6 +96,12 @@ int main(){
 
 			media_heap[cont] = (double)(end - begin)/CLOCKS_PER_SEC;
 
+			begin = clock();
+			counting(v_counting, random);
+			end = clock();
+
+			media_counting[cont] = (double)(end - begin)/CLOCKS_PER_SEC;
+
 			cont++;
 		}
 
@@ -98,12 +109,14 @@ int main(){
 		printf("%f", calculaMedia(media_insertion, rpt));
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
-		printf("	%f\n", calculaMedia(media_heap, rpt));
+		printf("	%f", calculaMedia(media_heap, rpt));
+		printf("	%f\n", calculaMedia(media_counting, rpt));
 		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
 		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
 		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
 		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
-		fprintf(output, "	%f\n", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f\n", calculaMedia(media_counting, rpt));
 
 		random = random + stp;
 
@@ -112,6 +125,7 @@ int main(){
 		free(v_merge);
 		free(v_quick);
 		free(v_heap);
+		free(v_counting);
 	}
 
 	printf("\n[[REVERSE]]\n");
@@ -126,15 +140,16 @@ int main(){
 		printf("%d", reverse);
 		fprintf(output, "%d", reverse);
 		cont = 0;
-		v_selection = calloc(reverse, sizeof(int));	
-		v_insertion = calloc(reverse, sizeof(int));
+		v_selection = malloc(reverse * sizeof(int));	
+		v_insertion = malloc(reverse * sizeof(int));
 		v_merge = malloc(reverse * sizeof(int));
 		v_quick = malloc(reverse * sizeof(int));
 		v_heap = malloc(reverse * sizeof(int));
+		v_counting = malloc(reverse * sizeof(int));
 
 		while(cont < rpt){
 			for(int i = 0; i<reverse; i++){
-				v_selection[i] = rand();
+				v_selection[i] = rand() % TAM;
 			}
 			mergesort(v_selection, reverse);
 			inverter_lista(v_selection, reverse);
@@ -144,6 +159,7 @@ int main(){
 				v_merge[i] = v_selection[i];
 				v_quick[i] = v_selection[i];
 				v_heap[i] = v_selection[i];
+				v_counting[i] = v_selection[i];
 			}
 
 			begin = clock();
@@ -176,6 +192,12 @@ int main(){
 
 			media_heap[cont] = (double)(end - begin)/CLOCKS_PER_SEC;
 
+			begin = clock();
+			counting(v_counting, reverse);
+			end = clock();
+
+			media_counting[cont] = (double)(end - begin)/CLOCKS_PER_SEC;
+
 			cont++;
 		}
 
@@ -183,12 +205,14 @@ int main(){
 		printf("%f", calculaMedia(media_insertion, rpt));
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
-		printf("	%f\n", calculaMedia(media_heap, rpt));
+		printf("	%f", calculaMedia(media_heap, rpt));
+		printf("	%f\n", calculaMedia(media_counting, rpt));
 		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
 		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
 		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
 		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
-		fprintf(output, "	%f\n", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f\n", calculaMedia(media_counting, rpt));
 
 		reverse = reverse + stp;
 
@@ -197,6 +221,7 @@ int main(){
 		free(v_merge);
 		free(v_quick);
 		free(v_heap);
+		free(v_counting);
 	}
 
 	printf("\n[[SORTED]]\n");
@@ -211,15 +236,16 @@ int main(){
 		printf("%d", sorted);
 		fprintf(output, "%d", sorted);
 		cont = 0;
-		v_selection = calloc(sorted, sizeof(int));	
-		v_insertion = calloc(sorted, sizeof(int));
+		v_selection = malloc(sorted * sizeof(int));	
+		v_insertion = malloc(sorted * sizeof(int));
 		v_merge = malloc(sorted * sizeof(int));
 		v_quick = malloc(sorted * sizeof(int));
 		v_heap = malloc(sorted * sizeof(int));
+		v_counting = malloc(sorted * sizeof(int));
 
 		while(cont < rpt){
 			for(int i = 0; i<sorted; i++){
-				v_selection[i] = rand();
+				v_selection[i] = rand() % TAM;
 			}
 			mergesort(v_selection, sorted);
 
@@ -228,6 +254,7 @@ int main(){
 				v_merge[i] = v_selection[i];
 				v_quick[i] = v_selection[i];
 				v_heap[i] = v_selection[i];
+				v_counting[i] = v_selection[i];
 			}
 
 			begin = clock();
@@ -260,6 +287,12 @@ int main(){
 
 			media_heap[cont] = (double)(end - begin)/CLOCKS_PER_SEC;
 
+			begin = clock();
+			counting(v_counting, sorted);
+			end = clock();
+
+			media_counting[cont] = (double)(end - begin)/CLOCKS_PER_SEC;
+
 			cont++;
 		}
 
@@ -267,12 +300,14 @@ int main(){
 		printf("%f", calculaMedia(media_insertion, rpt));
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
-		printf("	%f\n", calculaMedia(media_heap, rpt));
+		printf("	%f", calculaMedia(media_heap, rpt));
+		printf("	%f\n", calculaMedia(media_counting, rpt));
 		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
 		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
 		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
 		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
-		fprintf(output, "	%f\n", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f\n", calculaMedia(media_counting, rpt));
 
 		sorted = sorted + stp;
 
@@ -281,6 +316,7 @@ int main(){
 		free(v_merge);
 		free(v_quick);
 		free(v_heap);
+		free(v_counting);
 	}
 
 	printf("\n[[NEARLY SORTED]]\n");
@@ -295,15 +331,16 @@ int main(){
 		printf("%d", nearly_sorted);
 		fprintf(output, "%d", nearly_sorted);
 		cont = 0;
-		v_selection = calloc(nearly_sorted, sizeof(int));	
-		v_insertion = calloc(nearly_sorted, sizeof(int));
+		v_selection = malloc(nearly_sorted * sizeof(int));	
+		v_insertion = malloc(nearly_sorted * sizeof(int));
 		v_merge = malloc(nearly_sorted * sizeof(int));
 		v_quick = malloc(nearly_sorted * sizeof(int));
 		v_heap = malloc(nearly_sorted * sizeof(int));
+		v_counting = malloc(nearly_sorted * sizeof(int));
 
 		while(cont < rpt){
 			for(int i = 0; i<nearly_sorted; i++){
-				v_selection[i] = rand();
+				v_selection[i] = rand() % TAM;
 			}
 			mergesort(v_selection, nearly_sorted);
 			embaralhar(v_selection, nearly_sorted);
@@ -313,6 +350,7 @@ int main(){
 				v_merge[i] = v_selection[i];
 				v_quick[i] = v_selection[i];
 				v_heap[i] = v_selection[i];
+				v_counting[i] = v_selection[i];
 			}
 
 			begin = clock();
@@ -345,6 +383,12 @@ int main(){
 
 			media_heap[cont] = (double)(end - begin)/CLOCKS_PER_SEC;
 
+			begin = clock();
+			counting(v_counting, nearly_sorted);
+			end = clock();
+
+			media_counting[cont] = (double)(end - begin)/CLOCKS_PER_SEC;
+
 			cont++;
 		}
 
@@ -352,12 +396,14 @@ int main(){
 		printf("%f", calculaMedia(media_insertion, rpt));
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
-		printf("	%f\n", calculaMedia(media_heap, rpt));
+		printf("	%f", calculaMedia(media_heap, rpt));
+		printf("	%f\n", calculaMedia(media_counting, rpt));
 		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
 		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
 		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
 		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
-		fprintf(output, "	%f\n", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f", calculaMedia(media_heap, rpt));
+		fprintf(output, "	%f\n", calculaMedia(media_counting, rpt));
 
 		nearly_sorted = nearly_sorted + stp;
 
@@ -366,6 +412,7 @@ int main(){
 		free(v_merge);
 		free(v_quick);
 		free(v_heap);
+		free(v_counting);
 	}
 	fclose(output);
 

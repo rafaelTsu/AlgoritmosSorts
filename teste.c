@@ -7,8 +7,8 @@
 int main(){
 	int v[] = {1, 5, 2, 6, 8, 4, 3, 2, 0, 22, 44, 21};
 
-	heapsort(v, 12);
-	embaralhar(v, 12);
+	counting(v, 12);
+	//embaralhar(v, 12);
 
 	for(int i = 0; i< 12; i++){
 		printf("%d ", v[i]);
