@@ -3,7 +3,7 @@
 #include <time.h>
 #include "function.h"
 
-#define MAX 500001
+#define MAX 10001
 
 /*Merge Sort*/
 void merge(int *v, int ini, int meio, int fim){

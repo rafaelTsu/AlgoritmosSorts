@@ -4,7 +4,7 @@
 #include <time.h>
 #include "function.h"
 
-#define TAM 500000
+#define TAM 10000
 
 int main(){
 	int *v_selection = NULL, *v_insertion = NULL ,*v_merge = NULL, *v_quick = NULL, *v_heap = NULL, *v_counting = NULL;
@@ -105,14 +105,14 @@ int main(){
 			cont++;
 		}
 
-		printf("	%f	", calculaMedia(media_selection, rpt));
-		printf("%f", calculaMedia(media_insertion, rpt));
+		printf("	%f", calculaMedia(media_selection, rpt));
+		printf("	%f", calculaMedia(media_insertion, rpt));
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
 		printf("	%f", calculaMedia(media_heap, rpt));
 		printf("	%f\n", calculaMedia(media_counting, rpt));
-		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
-		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
+		fprintf(output, "	%f", calculaMedia(media_selection, rpt));
+		fprintf(output, "	%f", calculaMedia(media_insertion, rpt));
 		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
 		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
 		fprintf(output, "	%f", calculaMedia(media_heap, rpt));
@@ -201,14 +201,14 @@ int main(){
 			cont++;
 		}
 
-		printf("	%f	", calculaMedia(media_selection, rpt));
-		printf("%f", calculaMedia(media_insertion, rpt));
+		printf("	%f", calculaMedia(media_selection, rpt));
+		printf("	%f", calculaMedia(media_insertion, rpt));
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
 		printf("	%f", calculaMedia(media_heap, rpt));
 		printf("	%f\n", calculaMedia(media_counting, rpt));
-		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
-		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
+		fprintf(output, "	%f", calculaMedia(media_selection, rpt));
+		fprintf(output, "	%f", calculaMedia(media_insertion, rpt));
 		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
 		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
 		fprintf(output, "	%f", calculaMedia(media_heap, rpt));
@@ -296,14 +296,14 @@ int main(){
 			cont++;
 		}
 
-		printf("	%f	", calculaMedia(media_selection, rpt));
-		printf("%f", calculaMedia(media_insertion, rpt));
+		printf("	%f", calculaMedia(media_selection, rpt));
+		printf("	%f", calculaMedia(media_insertion, rpt));
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
 		printf("	%f", calculaMedia(media_heap, rpt));
 		printf("	%f\n", calculaMedia(media_counting, rpt));
-		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
-		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
+		fprintf(output, "	%f", calculaMedia(media_selection, rpt));
+		fprintf(output, "	%f", calculaMedia(media_insertion, rpt));
 		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
 		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
 		fprintf(output, "	%f", calculaMedia(media_heap, rpt));
@@ -392,14 +392,14 @@ int main(){
 			cont++;
 		}
 
-		printf("	%f	", calculaMedia(media_selection, rpt));
-		printf("%f", calculaMedia(media_insertion, rpt));
+		printf("	%f", calculaMedia(media_selection, rpt));
+		printf("	%f", calculaMedia(media_insertion, rpt));
 		printf("	%f", calculaMedia(media_merge, rpt));
 		printf("	%f", calculaMedia(media_quick, rpt));
 		printf("	%f", calculaMedia(media_heap, rpt));
 		printf("	%f\n", calculaMedia(media_counting, rpt));
-		fprintf(output, "	%f	", calculaMedia(media_selection, rpt));
-		fprintf(output, "%f", calculaMedia(media_insertion, rpt));
+		fprintf(output, "	%f", calculaMedia(media_selection, rpt));
+		fprintf(output, "	%f", calculaMedia(media_insertion, rpt));
 		fprintf(output, "	%f", calculaMedia(media_merge, rpt));
 		fprintf(output, "	%f", calculaMedia(media_quick, rpt));
 		fprintf(output, "	%f", calculaMedia(media_heap, rpt));
